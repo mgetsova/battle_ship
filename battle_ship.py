@@ -115,7 +115,6 @@ class Ocean:
         if row in self.coords:
             if col in self.coords[row]:
                 return True
-        print('MISS')
         return False
     
     def recordHit(self, row, col):
@@ -229,6 +228,7 @@ class Game:
             if self.print_boards:
                 self.shipBoard.updateHit(row, col)
         else:
+            print('MISS')
             if self.print_boards:
                 self.shipBoard.updateMiss(row, col)
         if self.print_boards:
@@ -249,6 +249,7 @@ class Game:
             if self.print_boards:
                 self.targetBoard.updateHit(row, col)
         else:
+            print('MISS')
             if self.print_boards:
                 self.targetBoard.updateMiss(row, col)
         if self.print_boards:
@@ -259,7 +260,7 @@ class Game:
         
 def main():
     # change flag to True to print out player's boards
-    new_game = Game(print_boards = False)
+    new_game = Game(print_boards = True)
     print('Here are your ships:')
     new_game.Player_ocean.printShips()
     print('And here are the CPU ships:')
