@@ -133,11 +133,12 @@ class Ocean:
                 
             
             
-class Remaining_Guesses:
+class Guesses:
     # keeps track of what positions the CPU has already
     # guessed at and allows for new random guesses to 
     # be generated via a row -> columns dict
     def __init__(self, board_size):
+        self.board_size = board_size
         self.coords = dict()
         for i in range(board_size):
             self.coords[i] = set()
@@ -153,14 +154,14 @@ class Remaining_Guesses:
         # if the CPU has guessed all columns for a 
         # row then it can no longer guess in that row
         # so we can delete that entire key from the dict
-        if len(self.coords[row]) == board_size:
+        if len(self.coords[row]) == self.board_size:
             del self.coords[row]
     
     def randomGuess(self):
         row = random.choice(list(self.coords))
         # randomly pick column from the set of all columns not already having been 
         # guessed at this row
-        col = random.choice(list(set(range(board_size)) - self.coords[row]))
+        col = random.choice(list(set(range(self.board_size)) - self.coords[row]))
         self.addGuess(row, col)
         return (row, col)
         
@@ -214,7 +215,7 @@ class Game:
         if self.print_boards:
             self.shipBoard.makeBoard(BOARD_SIZE)
             self.targetBoard.makeBoard(BOARD_SIZE)
-        self.CPU_guesses = Remaining_Guesses(BOARD_SIZE)
+        self.CPU_guesses = Guesses(BOARD_SIZE)
         
 
     def CPU_turn(self):
